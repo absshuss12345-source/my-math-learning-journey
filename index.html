@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رحلتي في التعلم — صيغ معادلة المستقيم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f4f8;--card:#fff;--text:#1f2a37;--muted:#5b6673;--line:#d5dbe3;--head:#e8f1f8;--warn:#fff6e0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1c222b;--text:#e8ecf1;--muted:#a3adba;--line:#344050;--head:#1d2b3a;--warn:#2d2816;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12161c;--card:#1c222b;--text:#e8ecf1;--muted:#a3adba;--line:#344050;--head:#1d2b3a;--warn:#2d2816;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;padding:14px;background:var(--bg);color:var(--text);font-family:'Cairo',Tahoma,sans-serif}
+.wrap{max-width:1400px;margin:0 auto;background:var(--card);border-radius:14px;padding:18px;box-shadow:0 4px 18px rgba(0,0,0,.12)}
+.hd{text-align:center;background:var(--head);border-radius:10px;padding:14px}
+.hd h1{margin:0 0 6px;font-size:22px}.hd h2{margin:4px 0;font-size:18px;color:#2980b9}
+.tch{display:flex;flex-wrap:wrap;justify-content:space-around;gap:6px;margin-top:10px;font-weight:700;font-size:14px}
+.stu{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0;background:var(--warn);border:1px solid #f39c12;border-radius:10px;padding:12px}
+.stu label{display:flex;flex:1;min-width:230px;align-items:center;gap:8px;font-weight:700}
+.stu input{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:6px;font:inherit;background:var(--card);color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.col{--c:#c0504d;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--c) 10%,var(--card));display:flex;flex-direction:column}
+.col .t{background:var(--c);color:#fff;text-align:center;padding:10px 6px;border-radius:9px 9px 0 0}
+.col .l{font-size:30px;font-weight:700;line-height:1}.col .en{font-size:12px;direction:ltr}.col .ar{font-weight:700;font-size:14px}
+.b{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.dd{position:relative}
+.dd>summary{width:100%;text-align:right;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text);font:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;gap:6px}
+.pn{display:none;position:absolute;z-index:20;inset-inline:0;top:100%;margin-top:3px;background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.25);padding:6px;max-height:360px;overflow-y:auto}
+.dd[open] .pn{display:block}
+.dd>summary{list-style:none}.dd>summary::-webkit-details-marker{display:none}.notice{padding:10px;background:var(--warn);border-radius:8px}
+.pn label{display:flex;gap:6px;align-items:flex-start;font-size:13px;line-height:1.5;padding:5px;border-radius:5px;cursor:pointer}
+.pn label:hover{background:var(--head)}
+.pn label:has(input:disabled){opacity:.45;cursor:not-allowed}
+.sel{background:var(--card);border:1px dashed var(--muted);border-radius:6px;padding:8px;min-height:90px;font-size:13px}
+.sel h4{margin:0 0 6px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:4px}
+.sel ul{margin:0;padding-inline-start:18px}.sel li{margin-bottom:4px}
+textarea{width:100%;min-height:52px;resize:vertical;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:12.5px;background:var(--card);color:var(--text)}
+.act{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px}
+.btn{border:0;border-radius:8px;padding:10px 22px;font:inherit;font-weight:700;color:#fff;cursor:pointer}
+.p{background:#2c3e50}.s{background:#27ae60}.r{background:#e74c3c}
+#msg{text-align:center;margin-top:10px;min-height:22px;font-weight:700;color:#27ae60}
+.pgw{margin:0 0 12px}#pgt{font-weight:700;font-size:14px;margin-bottom:4px}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:#27ae60;transition:width .3s}
+.ph{display:inline-block;font-size:11px;background:rgba(255,255,255,.25);border-radius:10px;padding:1px 8px;margin-bottom:4px}
+.sel li.bad{color:#c0392b}.sel li.bad small{font-weight:700}
+.motivation{text-align:center;margin:14px 0 6px;padding:12px;border-radius:10px;background:var(--head);color:var(--text);font-size:15px;font-weight:700;break-inside:avoid}
+.pf{display:none;justify-content:space-between;margin-top:8px;font-size:12px}
+@page{size:A4 landscape;margin:6mm}
+@media print{
+:root{--bg:#fff;--card:#fff;--text:#000;--muted:#444;--line:#999;--head:#eef4f8;--warn:#fff;color-scheme:light}
+body{padding:0}.wrap{box-shadow:none;max-width:100%;padding:0;border-radius:0}.hd{padding:6px}.hd h1{font-size:16px}.hd h2{font-size:14px}.tch{font-size:11px;margin-top:4px}.stu{margin:6px 0;padding:6px;gap:8px}.stu input{padding:3px 6px;border:0;border-bottom:1px solid #000;border-radius:0}.col{break-inside:avoid}.col .l{font-size:22px}.col .en,.col .ar{font-size:10px}.b{padding:6px;gap:5px}textarea{min-height:36px;resize:none;font-size:10px}.dd,.act,#msg,#sum,.pgw{display:none!important}.pf{display:flex}
+.grid{grid-template-columns:repeat(6,1fr)!important;gap:5px}.sel{min-height:160px;font-size:11px}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.phase-submit{grid-column:1/-1;text-align:center;padding:14px}.phase-submit p{font-size:12px}.print-note{display:none}@media print{.phase-submit{display:none!important}.col textarea{display:none}.print-note{display:block;white-space:pre-wrap;overflow-wrap:anywhere;font-size:10px}.wrap{break-inside:avoid}.sel li{overflow-wrap:anywhere}}
+.reflection-label{font-size:12px;font-weight:700;color:var(--text)}@media print{.reflection-label{font-size:10px}}
+.btn:disabled{opacity:.45;cursor:not-allowed}.save-status{color:#218048;min-height:18px}
+
+/* Full-page landscape print layout, independent of screen dimensions. */
+@media print{
+:root{padding:0!important;--bg:#fff;--card:#fff;--text:#111;--muted:#444;--line:#aaa;--head:#eef4f8;--warn:#fff;color-scheme:light}
+html,body{width:285mm!important;margin:0!important;padding:0!important;background:#fff!important}
+.wrap{width:285mm!important;max-width:none!important;min-height:197mm;display:flex;flex-direction:column;margin:0!important;padding:0!important;zoom:1!important;box-shadow:none}
+.hd{flex:none;padding:3mm}.hd h1{font-size:16px;line-height:1.5}.hd h2{font-size:13px;line-height:1.5}.tch{font-size:10px;gap:3px}
+.stu{flex:none;margin:3mm 0;padding:2mm;gap:3mm}.stu label{min-width:0;font-size:11px}.stu input{width:100%;font-size:11px}
+.grid{flex:1;display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;grid-template-rows:minmax(140mm,1fr);gap:2mm!important;align-items:stretch}
+.col{min-width:0;break-inside:avoid;display:flex;flex-direction:column}.col .t{padding:2mm}.col .l{font-size:25px}.col .en{font-size:10px}.col .ar{font-size:12px}.ph{font-size:10px}
+.b{flex:1;padding:2mm;gap:2mm}.sel{flex:1;min-height:0;font-size:12px;line-height:1.6;padding:2mm}.sel h4{font-size:11px}.sel li{margin-bottom:2mm;overflow-wrap:anywhere}.sel ul{padding-inline-start:4mm}
+.print-note{display:block;min-height:13mm;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;line-height:1.5;padding:2mm;border:1px solid var(--line);border-radius:5px}.reflection-label{font-size:11px}
+.pf{flex:none;margin-top:2mm;font-size:11px}.motivation{flex:none;text-align:center;margin:2mm 0 0;padding:3mm;font-size:13px;line-height:1.5}
+.phase-submit,.act,.pgw,#msg,#sum,.dd,.col textarea,noscript{display:none!important}
+}
+
+
+/* Slightly larger, bold column typography. */
+.col{font-weight:700}
+.col .ar{font-size:15px}.col .en{font-size:13px;font-weight:700}
+.col .pn label,.col .sel{font-size:14px;font-weight:700}
+.col .sel h4,.col textarea,.col .reflection-label{font-size:13.5px;font-weight:700}
+.col .dd>summary{font-size:14px;font-weight:700}
+@media print{
+.col .ar{font-size:13px}.col .en{font-size:11px}
+.col .sel{font-size:13px;line-height:1.55;font-weight:700}
+.col .sel h4,.col .reflection-label,.col .print-note{font-size:12px;font-weight:700}
+.col .ph{font-size:11px;font-weight:700}
+}
+
+
+.math-formula{display:inline-block;direction:ltr;unicode-bidi:isolate;white-space:nowrap;font-family:"Cambria Math","Times New Roman",serif;font-size:1.12em;font-weight:700;line-height:1.8;vertical-align:middle}
+.math-formula sub{font-size:.7em;line-height:0}
+.fraction{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.35;margin:0 .12em}
+.fraction>span{display:block;padding:0 .2em;white-space:nowrap}
+.fraction>span:first-child{border-bottom:1.5px solid currentColor;padding-bottom:.12em}
+.fraction>span:last-child{padding-top:.12em}
+.option-text{min-width:0}.pn input{flex-shrink:0}
+@media print{.math-formula{font-size:14px}.fraction{line-height:1.25}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hd">
+<h1>رحلتي في التعلم: أعرف، أتساءل، أتعلم، أطبّق، أتأمل</h1>
+<h2>جدول التعلم التفاعلي KWHLAQ — صيغ معادلة المستقيم</h2>
+<div class="tch"><span>🏫 ثانوية الحصان الأهلية بالدمام</span><span>👨‍🏫 معلم الرياضيات: أ. عمرو أبوريا</span><span>📘 الفصل 2: التوازي والتعامد</span></div>
+</div>
+<div class="stu">
+<label>👤 اسم الطالب: <input id="sn" placeholder="اكتب اسمك الثلاثي"></label>
+<label>📌 الشعبة: <input id="sc" placeholder="مثال: أول ثانوي / شعبة 1"></label>
+</div>
+<div class="pgw"><div id="pgt">أكملت 0 من 6 أعمدة</div><div class="bar"><i id="pgi"></i></div></div>
+<noscript><p class="notice">الجدول ظاهر أدناه. لتفعيل حد الاختيارات والحفظ وتصدير الصورة، افتح الملف في متصفح يدعم JavaScript.</p></noscript>
+<div class="grid" id="grid"><div class="col" style="--c:#c0504d"><div class="t"><span class="ph">قبل الدرس</span><div class="l">K</div><div class="en">What do I know?</div><div class="ar">ماذا أعرف؟</div></div><div class="b"><details class="dd"><summary><span>🔽 اختر مما تعرفه (أهم 4 فقط)</span><span class="n">0/4</span></summary><div class="pn"><label><input type="checkbox" data-i="0" value="قانون الميل: m = (y₂ − y₁) / (x₂ − x₁)، بشرط x₂ ≠ x₁"> <span class="option-text">قانون الميل:<br><span class="math-formula" dir="ltr">m = <span class="fraction"><span>y<sub>2</sub> − y<sub>1</sub></span><span>x<sub>2</sub> − x<sub>1</sub></span></span></span><br>بشرط <span class="math-formula" dir="ltr">x<sub>2</sub> ≠ x<sub>1</sub></span></span></label><label><input type="checkbox" data-i="1" value="تمثيل النقاط (x, y) على المستوى الإحداثي"> <span class="option-text">تمثيل النقاط <span class="math-formula" dir="ltr">(x, y)</span> على المستوى الإحداثي</span></label><label><input type="checkbox" data-i="2" value="المستقيمان المتوازيان غير الرأسيين لهما الميل نفسه"> المستقيمان المتوازيان غير الرأسيين لهما الميل نفسه</label><label><input type="checkbox" data-i="3" value="حاصل ضرب ميلي المستقيمين المتعامدين = −1، إذا كان ميلاهما معرفين"> <span class="option-text">حاصل ضرب ميلي المستقيمين المتعامدين:<br><span class="math-formula" dir="ltr">m<sub>1</sub> × m<sub>2</sub> = −1</span><br>إذا كان ميلاهما معرفين</span></label><label><input type="checkbox" data-i="4" value="ميل الأفقي = 0 وميل الرأسي غير معرف"> <span class="option-text">ميل الأفقي <span class="math-formula" dir="ltr">m = 0</span> وميل الرأسي غير معرف</span></label></div></details><div class="sel"><h4>✅ اختيارات الطالب</h4><ul></ul></div><textarea placeholder="إضافات أخرى للطالب..."></textarea></div></div>
+<div class="col" style="--c:#7a9a3a"><div class="t"><span class="ph">قبل الدرس</span><div class="l">W</div><div class="en">What do I want to know?</div><div class="ar">ماذا أريد أن أعرف؟</div></div><div class="b"><details class="dd"><summary><span>🔽 اختر أهدافك (أهم 4 فقط)</span><span class="n">0/4</span></summary><div class="pn"><label><input type="checkbox" data-i="0" value="كتابة المعادلة بصيغة الميل والمقطع"> كتابة المعادلة بصيغة الميل والمقطع</label><label><input type="checkbox" data-i="1" value="كتابة المعادلة بصيغة الميل ونقطة"> كتابة المعادلة بصيغة الميل ونقطة</label><label><input type="checkbox" data-i="2" value="كتابة معادلة مستقيم يمر بنقطتين"> كتابة معادلة مستقيم يمر بنقطتين</label><label><input type="checkbox" data-i="3" value="معادلات المستقيمات الأفقية والرأسية والمتوازية والمتعامدة"> معادلات المستقيمات الأفقية والرأسية والمتوازية والمتعامدة</label><label><input type="checkbox" data-i="4" value="حل مسائل من واقع الحياة بمعادلة خطية"> حل مسائل من واقع الحياة بمعادلة خطية</label><label><input type="checkbox" data-i="5" value="إيجاد معادلة العمود المنصف لقطعة مستقيمة"> إيجاد معادلة العمود المنصف لقطعة مستقيمة</label></div></details><div class="sel"><h4>✅ اختيارات الطالب</h4><ul></ul></div><textarea placeholder="إضافات أخرى للطالب..."></textarea></div></div>
+<div class="col" style="--c:#8064a2"><div class="t"><span class="ph">قبل الدرس</span><div class="l">H</div><div class="en">How can I find out?</div><div class="ar">كيف سأتعلم؟</div></div><div class="b"><details class="dd"><summary><span>🔽 اختر طرق التعلم (أهم 4 فقط)</span><span class="n">0/4</span></summary><div class="pn"><label><input type="checkbox" data-i="0" value="متابعة شرح أ. عمرو أبوريا وتدوين الملاحظات"> متابعة شرح أ. عمرو أبوريا وتدوين الملاحظات</label><label><input type="checkbox" data-i="1" value="دراسة الأمثلة 1-6 وحل تحقق من فهمك"> دراسة الأمثلة 1-6 وحل تحقق من فهمك</label><label><input type="checkbox" data-i="2" value="استعمال ورق الرسم البياني والتمثيل الإحداثي"> استعمال ورق الرسم البياني والتمثيل الإحداثي</label><label><input type="checkbox" data-i="3" value="التعاون مع الزملاء في الأنشطة"> التعاون مع الزملاء في الأنشطة</label><label><input type="checkbox" data-i="4" value="استخدام برنامج GeoGebra"> استخدام برنامج GeoGebra</label><label><input type="checkbox" data-i="5" value="حل أوراق العمل والتدريبات الإثرائية"> حل أوراق العمل والتدريبات الإثرائية</label></div></details><div class="sel"><h4>✅ اختيارات الطالب</h4><ul></ul></div><textarea placeholder="إضافات أخرى للطالب..."></textarea></div></div>
+<div class="phase-submit"><button class="btn s" onclick="submitPhase('before')">💾 حفظ إجابات قبل الدرس</button><p class="save-status" role="status"></p></div><div class="col" style="--c:#2f93ad"><div class="t"><span class="ph">بعد الدرس</span><div class="l">L</div><div class="en">What have I learned?</div><div class="ar">ماذا تعلمت؟</div></div><div class="b"><details class="dd"><summary><span>🔽 اختر ما تعلمته (أهم 4 فقط)</span><span class="n">0/4</span></summary><div class="pn"><label><input type="checkbox" data-i="0" value="صيغة الميل والمقطع: y = mx + b"> <span class="option-text">صيغة الميل والمقطع:<br><span class="math-formula" dir="ltr">y = mx + b</span></span></label><label><input type="checkbox" data-i="1" value="صيغة الميل ونقطة: y − y₁ = m(x − x₁)"> <span class="option-text">صيغة الميل ونقطة:<br><span class="math-formula" dir="ltr">y − y<sub>1</sub> = m(x − x<sub>1</sub>)</span></span></label><label><input type="checkbox" data-i="2" value="الأفقي y = b والرأسي x = a"> <span class="option-text">الأفقي <span class="math-formula" dir="ltr">y = b</span><br>والرأسي <span class="math-formula" dir="ltr">x = a</span></span></label><label><input type="checkbox" data-i="3" value="معادلة الموازي والعمودي لمستقيم معلوم يمر بنقطة"> معادلة الموازي والعمودي لمستقيم معلوم يمر بنقطة</label><label><input type="checkbox" data-i="4" value="نمذجة موقف حياتي بمعادلة مثل C = mt + b"> <span class="option-text">نمذجة موقف حياتي بمعادلة مثل:<br><span class="math-formula" dir="ltr">C = mt + b</span></span></label><label><input type="checkbox" data-i="5" value="معادلة العمود المنصف: نقطة المنتصف والميل العمودي"> معادلة العمود المنصف: نقطة المنتصف والميل العمودي</label></div></details><div class="sel"><h4>✅ اختيارات الطالب</h4><ul></ul></div><label class="reflection-label" for="reflection-l">دليل على تعلّمي</label><textarea id="reflection-l" placeholder="اكتب مثالًا على مهارة تعلمتها، ووضّح كيف طبّقتها."></textarea></div></div>
+<div class="col" style="--c:#e0782a"><div class="t"><span class="ph">بعد الدرس</span><div class="l">A</div><div class="en">What action will I take?</div><div class="ar">ما الإجراء الذي سأتخذه؟</div></div><div class="b"><details class="dd"><summary><span>🔽 اختر تطبيقاتك (أهم 4 فقط)</span><span class="n">0/4</span></summary><div class="pn"><label><input type="checkbox" data-i="0" value="حل تمارين تأكد وتدرب وحل المسائل (ص 121–125)"> حل تمارين تأكد وتدرب وحل المسائل (ص 121–125)</label><label><input type="checkbox" data-i="1" value="مقارنة عروض الاتصالات أو الأندية بمعادلتين"> مقارنة عروض الاتصالات أو الأندية بمعادلتين</label><label><input type="checkbox" data-i="2" value="تلخيص الصيغ في المطوية الدراسية"> تلخيص الصيغ في المطوية الدراسية</label><label><input type="checkbox" data-i="3" value="التحقق من الحل بتعويض النقاط في المعادلة"> التحقق من الحل بتعويض النقاط في المعادلة</label></div></details><div class="sel"><h4>✅ اختيارات الطالب</h4><ul></ul></div><textarea placeholder="إضافات أخرى للطالب..."></textarea></div></div>
+<div class="col" style="--c:#b8466e"><div class="t"><span class="ph">بعد الدرس</span><div class="l">Q</div><div class="en">What questions do I have?</div><div class="ar">ما الأسئلة الجديدة لدي؟</div></div><div class="b"><details class="dd"><summary><span>🔽 اختر تساؤلاتك (أهم 4 فقط)</span><span class="n">0/4</span></summary><div class="pn"><label><input type="checkbox" data-i="0" value="متى تكون صيغة الميل ونقطة أسهل من الميل والمقطع؟"> متى تكون صيغة الميل ونقطة أسهل من الميل والمقطع؟</label><label><input type="checkbox" data-i="1" value="كيف أثبت أن ثلاث نقاط تقع على استقامة واحدة؟"> كيف أثبت أن ثلاث نقاط تقع على استقامة واحدة؟</label><label><input type="checkbox" data-i="2" value="كيف أستخدم معادلة المستقيم للمفاضلة بين عرضين مقدمين؟"> كيف أستخدم معادلة المستقيم للمفاضلة بين عرضين مقدمين؟</label><label><input type="checkbox" data-i="3" value="كيف أحدد نوع المضلع في المستوى الإحداثي بالميل؟"> كيف أحدد نوع المضلع في المستوى الإحداثي بالميل؟</label><label><input type="checkbox" data-i="4" value="ما علاقة الدرس بالدوال الرئيسة (الأم)؟"> ما علاقة الدرس بالدوال الرئيسة (الأم)؟</label></div></details><div class="sel"><h4>✅ اختيارات الطالب</h4><ul></ul></div><label class="reflection-label" for="reflection-q">سؤالي الخاص</label><textarea id="reflection-q" placeholder="اكتب سؤالًا جديدًا من صياغتك حول الدرس أو تطبيقاته."></textarea></div></div><div class="phase-submit"><button class="btn s" onclick="submitPhase('after')">💾 حفظ إجابات بعد الدرس</button><p class="save-status" role="status"></p></div></div>
+<div class="pf"><span>التاريخ: <b id="dt"></b></span></div>
+<div class="act">
+<button id="print-button" class="btn p" onclick="saveImage()" disabled>🖼️ حفظ الجدول صورة بالعرض</button>
+<button class="btn r" onclick="resetAll()">🔄 مسح الاختيارات</button>
+</div>
+<div id="msg" role="status"></div>
+<textarea id="sum" readonly style="display:none;margin-top:8px;min-height:150px"></textarea>
+</div>
+<script>
+var D=[
+{k:'K',c:'#c0504d',en:'What do I know?',ar:'ماذا أعرف؟',h:'اختر مما تعرفه',o:[
+'قانون الميل: m = (y₂ − y₁) / (x₂ − x₁)، بشرط x₂ ≠ x₁','تمثيل النقاط (x, y) على المستوى الإحداثي','المستقيمان المتوازيان غير الرأسيين لهما الميل نفسه','حاصل ضرب ميلي المستقيمين المتعامدين = −1، إذا كان ميلاهما معرفين','ميل الأفقي = 0 وميل الرأسي غير معرف']},
+{k:'W',c:'#7a9a3a',en:'What do I want to know?',ar:'ماذا أريد أن أعرف؟',h:'اختر أهدافك',o:[
+'كتابة المعادلة بصيغة الميل والمقطع','كتابة المعادلة بصيغة الميل ونقطة','كتابة معادلة مستقيم يمر بنقطتين','معادلات المستقيمات الأفقية والرأسية والمتوازية والمتعامدة','حل مسائل من واقع الحياة بمعادلة خطية','إيجاد معادلة العمود المنصف لقطعة مستقيمة']},
+{k:'H',c:'#8064a2',en:'How can I find out?',ar:'كيف سأتعلم؟',h:'اختر طرق التعلم',o:[
+'متابعة شرح أ. عمرو أبوريا وتدوين الملاحظات','دراسة الأمثلة 1-6 وحل تحقق من فهمك','استعمال ورق الرسم البياني والتمثيل الإحداثي','التعاون مع الزملاء في الأنشطة','استخدام برنامج GeoGebra','حل أوراق العمل والتدريبات الإثرائية']},
+{k:'L',c:'#2f93ad',en:'What have I learned?',ar:'ماذا تعلمت؟',h:'اختر ما تعلمته',o:[
+'صيغة الميل والمقطع: y = mx + b','صيغة الميل ونقطة: y − y₁ = m(x − x₁)','الأفقي y = b والرأسي x = a','معادلة الموازي والعمودي لمستقيم معلوم يمر بنقطة','نمذجة موقف حياتي بمعادلة مثل C = mt + b','معادلة العمود المنصف: نقطة المنتصف والميل العمودي']},
+{k:'A',c:'#e0782a',en:'What action will I take?',ar:'ما الإجراء الذي سأتخذه؟',h:'اختر تطبيقاتك',o:[
+'حل تمارين تأكد وتدرب وحل المسائل (ص 121–125)','مقارنة عروض الاتصالات أو الأندية بمعادلتين','تلخيص الصيغ في المطوية الدراسية','التحقق من الحل بتعويض النقاط في المعادلة']},
+{k:'Q',c:'#b8466e',en:'What questions do I have?',ar:'ما الأسئلة الجديدة لدي؟',h:'اختر تساؤلاتك',o:[
+'متى تكون صيغة الميل ونقطة أسهل من الميل والمقطع؟','كيف أثبت أن ثلاث نقاط تقع على استقامة واحدة؟','كيف أستخدم معادلة المستقيم للمفاضلة بين عرضين مقدمين؟','كيف أحدد نوع المضلع في المستوى الإحداثي بالميل؟','ما علاقة الدرس بالدوال الرئيسة (الأم)؟']}
+];
+D.forEach(function(d,i){d.ph=i<3?'قبل الدرس':'بعد الدرس'});
+var FORMATTED_OPTIONS={"قانون الميل: m = (y₂ − y₁) / (x₂ − x₁)، بشرط x₂ ≠ x₁": "قانون الميل:<br><span class=\"math-formula\" dir=\"ltr\">m = <span class=\"fraction\"><span>y<sub>2</sub> − y<sub>1</sub></span><span>x<sub>2</sub> − x<sub>1</sub></span></span></span><br>بشرط <span class=\"math-formula\" dir=\"ltr\">x<sub>2</sub> ≠ x<sub>1</sub></span>", "تمثيل النقاط (x, y) على المستوى الإحداثي": "تمثيل النقاط <span class=\"math-formula\" dir=\"ltr\">(x, y)</span> على المستوى الإحداثي", "حاصل ضرب ميلي المستقيمين المتعامدين = −1، إذا كان ميلاهما معرفين": "حاصل ضرب ميلي المستقيمين المتعامدين:<br><span class=\"math-formula\" dir=\"ltr\">m<sub>1</sub> × m<sub>2</sub> = −1</span><br>إذا كان ميلاهما معرفين", "ميل الأفقي = 0 وميل الرأسي غير معرف": "ميل الأفقي <span class=\"math-formula\" dir=\"ltr\">m = 0</span> وميل الرأسي غير معرف", "صيغة الميل والمقطع: y = mx + b": "صيغة الميل والمقطع:<br><span class=\"math-formula\" dir=\"ltr\">y = mx + b</span>", "صيغة الميل ونقطة: y − y₁ = m(x − x₁)": "صيغة الميل ونقطة:<br><span class=\"math-formula\" dir=\"ltr\">y − y<sub>1</sub> = m(x − x<sub>1</sub>)</span>", "الأفقي y = b والرأسي x = a": "الأفقي <span class=\"math-formula\" dir=\"ltr\">y = b</span><br>والرأسي <span class=\"math-formula\" dir=\"ltr\">x = a</span>", "نمذجة موقف حياتي بمعادلة مثل C = mt + b": "نمذجة موقف حياتي بمعادلة مثل:<br><span class=\"math-formula\" dir=\"ltr\">C = mt + b</span>"};
+var g=document.getElementById('grid');
+function render(col){
+var ul=col.querySelector('ul');ul.innerHTML='';var n=0;
+col.querySelectorAll('input:checked').forEach(function(cb){var li=document.createElement('li');if(Object.prototype.hasOwnProperty.call(FORMATTED_OPTIONS,cb.value)){li.innerHTML=FORMATTED_OPTIONS[cb.value];}else{li.textContent=cb.value;}ul.appendChild(li);n++});
+col.querySelector('.n').textContent=n+'/4';var full=n>=4;col.querySelectorAll('input[type=checkbox]').forEach(function(cb){cb.disabled=full&&!cb.checked});progress();
+}
+g.addEventListener('click',function(e){
+var b=e.target.closest('.dd>button');
+if(b){var dd=b.parentNode,was=dd.classList.contains('open');document.querySelectorAll('.dd[open]').forEach(function(x){x.removeAttribute('open')});if(!was)dd.classList.add('open');}
+});
+g.addEventListener('change',function(e){var c=e.target.closest('.col');render(c);if(e.target.checked&&c.querySelectorAll('input:checked').length>=4)say('اخترت أهم 4 اختيارات، ألغِ أحدها إن أردت التغيير.')});
+document.addEventListener('click',function(e){if(!e.target.closest('.dd'))document.querySelectorAll('.dd[open]').forEach(function(x){x.removeAttribute('open')})});
+var KEY='kwhlaq-2-5-v1';
+var submitted={before:false,after:false};
+function progress(){var c=0;document.querySelectorAll('.col').forEach(function(x){if(x.querySelector('li'))c++});document.getElementById('pgt').textContent='أكملت '+c+' من 6 أعمدة'+(c==6?' 🎉':'');document.getElementById('pgi').style.width=(c/6*100)+'%'}
+function save(){try{var cols=[];document.querySelectorAll('.col').forEach(function(x){var a=[];x.querySelectorAll('input:checked').forEach(function(cb){a.push(+cb.dataset.i)});cols.push({a:a,n:x.querySelector('textarea').value})});localStorage.setItem(KEY,JSON.stringify({sn:document.getElementById('sn').value,sc:document.getElementById('sc').value,submitted:submitted,cols:cols}));return true;}catch(e){return false;}}
+function load(){try{var s=JSON.parse(localStorage.getItem(KEY)||'null');if(!s)return;submitted=s.submitted||{before:false,after:false};document.getElementById('sn').value=s.sn||'';document.getElementById('sc').value=s.sc||'';document.querySelectorAll('.col').forEach(function(x,i){var c=s.cols&&s.cols[i];if(!c)return;x.querySelectorAll('input[type=checkbox]').forEach(function(cb){cb.checked=c.a.slice(0,4).indexOf(+cb.dataset.i)>-1});x.querySelector('textarea').value=c.n||''})}catch(e){}}
+function syncAll(){document.querySelectorAll('.col').forEach(render)}
+function setDt(){document.getElementById('dt').textContent=new Date().toLocaleDateString('ar-SA')}
+setDt();window.addEventListener('beforeprint',setDt);
+load();syncAll();updateSubmissionUI();
+document.addEventListener('input',changedAnswer);document.addEventListener('change',changedAnswer);
+window.addEventListener('pageshow',syncAll);
+async function saveImage(){
+if(!submitted.before||!submitted.after){say('احفظ إجابات المرحلتين أولًا.');return;}
+var button=document.getElementById('print-button');button.disabled=true;button.textContent='جارٍ تجهيز الصورة…';
+try{
+if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+var canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');
+if(!ctx)throw new Error('canvas');
+var font='700 34px Cairo, Tahoma, Arial, sans-serif';
+function wrap(text,width){
+ctx.font=font;var lines=[];
+String(text).split('\n').forEach(function(par){var line='';par.split(/\s+/).filter(Boolean).forEach(function(word){
+if(ctx.measureText(word).width>width){if(line){lines.push(line);line='';}var part='';Array.from(word).forEach(function(ch){if(ctx.measureText(part+ch).width>width&&part){lines.push(part);part='';}part+=ch;});line=part;}
+else if(line&&ctx.measureText(line+' '+word).width>width){lines.push(line);line=word;}else line+=(line?' ':'')+word;
+});lines.push(line);});return lines;
+}
+function blocks(value,width){
+if(!Object.prototype.hasOwnProperty.call(FORMATTED_OPTIONS,value))return wrap('• '+value,width).map(function(t){return {text:t,h:54};});
+var holder=document.createElement('div');holder.innerHTML=FORMATTED_OPTIONS[value];var result=[];
+Array.from(holder.childNodes).forEach(function(n){
+if(n.nodeType===3&&n.textContent.trim())wrap(n.textContent.trim(),width).forEach(function(t){result.push({text:t,h:54});});
+else if(n.nodeType===1&&n.classList.contains('math-formula')){
+var fraction=n.querySelector('.fraction');result.push(fraction?{fraction:true,h:124}:{math:n.textContent,h:60});
+}});return result;
+}
+var cols=Array.from(document.querySelectorAll('.col'));
+function layout(width){
+var cw=(width-100-5*20)/6;
+var lists=cols.map(function(col){var rows=[];col.querySelectorAll('input:checked').forEach(function(cb){rows=rows.concat(blocks(cb.value,cw-70));rows.push({text:'',h:22});});return rows;});
+var notes=cols.map(function(col){return wrap(col.querySelector('textarea').value.trim(),cw-70);});
+var noteHeight=Math.max(140,Math.max.apply(null,notes.map(function(n){return n.length*54+30;})));
+var contentHeight=Math.max.apply(null,lists.map(function(rows){return rows.reduce(function(n,r){return n+r.h;},0);}));
+return {cw:cw,lists:lists,notes:notes,noteHeight:noteHeight,height:Math.max(2050,Math.ceil(1020+contentHeight+noteHeight))};
+}
+var width=3000,plan=layout(width);if(plan.height>=width){width=Math.ceil(plan.height*1.42);plan=layout(width);}
+canvas.width=width;canvas.height=plan.height;ctx.fillStyle='#fff';ctx.fillRect(0,0,width,canvas.height);
+function text(t,x,y,color,size,align,dir){ctx.fillStyle=color||'#172638';ctx.font='700 '+(size||34)+'px Cairo, Tahoma, Arial, sans-serif';ctx.textAlign=align||'right';ctx.direction=dir||'rtl';ctx.textBaseline='top';ctx.fillText(t,x,y);}
+function box(x,y,w,h,fill,stroke,r){ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r||18);else ctx.rect(x,y,w,h);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}}
+box(50,30,width-100,235,'#edf2f8');
+text('رحلتي في التعلم: أعرف، أتساءل، أتعلم، أطبّق، أتأمل',width/2,57,'#172638',48,'center');
+text('جدول التعلم التفاعلي KWHLAQ — صيغ معادلة المستقيم',width/2,128,'#2f7896',36,'center');
+text('ثانوية الحصان الأهلية بالدمام',width-85,207,'#172638',27);
+text('معلم الرياضيات: أ. عمرو أبوريا',width/2,207,'#172638',27,'center');
+text('الفصل 2: التوازي والتعامد',85,207,'#172638',27,'left');
+box(50,292,width-100,104,'#fff','#d4a545');
+text('اسم الطالب: '+document.getElementById('sn').value,width-85,322,'#172638',34);
+text('الشعبة: '+document.getElementById('sc').value,85,322,'#172638',34,'left');
+D.forEach(function(d,i){
+var x=width-50-(i+1)*plan.cw-i*20,y=425,bottom=canvas.height-95,noteTop=bottom-plan.noteHeight-20;
+box(x,y,plan.cw,bottom-y,d.c+'16','#aeb6c1');
+box(x,y,plan.cw,262,d.c);
+box(x+plan.cw/2-92,y+25,184,45,'#ffffff30',null,22);
+text(d.ph,x+plan.cw/2,y+28,'#fff',25,'center');
+text(d.k,x+plan.cw/2,y+82,'#fff',65,'center','ltr');
+text(d.en,x+plan.cw/2,y+164,'#fff',24,'center','ltr');
+text(d.ar,x+plan.cw/2,y+213,'#fff',31,'center');
+ctx.setLineDash([7,6]);box(x+20,710,plan.cw-40,noteTop-775,'#fff','#777',8);ctx.setLineDash([]);
+text('اختيارات الطالب ✓',x+plan.cw-40,728,'#24493a',30);
+ctx.fillStyle='#cbd2d9';ctx.fillRect(x+36,782,plan.cw-72,2);
+var bodyTop=803;
+plan.lists[i].forEach(function(row){
+if(row.fraction){var cx=x+plan.cw/2;ctx.fillStyle='#172638';ctx.direction='ltr';ctx.textAlign='center';ctx.font='700 40px "Times New Roman",serif';ctx.fillText('m =',cx-105,bodyTop+34);ctx.fillText('y₂ − y₁',cx+27,bodyTop+4);ctx.fillRect(cx-44,bodyTop+53,142,2);ctx.fillText('x₂ − x₁',cx+27,bodyTop+65);}
+else if(row.math){text(row.math,x+plan.cw/2,bodyTop,'#172638',37,'center','ltr');}
+else text(row.text,x+plan.cw-35,bodyTop,'#172638',34);
+bodyTop+=row.h;
+});
+var noteLabel=cols[i].querySelector('.reflection-label');
+text(noteLabel?noteLabel.textContent:'إضافات الطالب',x+plan.cw-25,noteTop-53,'#172638',29);
+box(x+20,noteTop,plan.cw-40,plan.noteHeight,'#ffffff80','#aeb6c1',10);
+plan.notes[i].forEach(function(t,j){text(t,x+plan.cw-35,noteTop+15+j*54,'#172638',34);});
+});
+text('التاريخ: '+new Date().toLocaleDateString('ar-SA'),width-50,canvas.height-65,'#526173',26);
+var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/png');});if(!blob)throw new Error('encode');
+var url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='KWHLAQ-'+(document.getElementById('sn').value.trim().replace(/[\\/:*?"<>|]/g,'-')||'student')+'.png';document.body.appendChild(a);a.click();a.remove();
+setTimeout(function(){URL.revokeObjectURL(url);},60000);say('تم تجهيز الصورة وتنزيلها بصيغة PNG.');
+}catch(e){say('تعذر إنشاء الصورة. أعد المحاولة من المتصفح.');}
+finally{button.textContent='🖼️ حفظ الجدول صورة بالعرض';updateSubmissionUI();}
+}
+
+function say(t){var m=document.getElementById('msg');m.textContent=t;setTimeout(function(){m.textContent=''},5000)}
+function summary(phase){
+var t='📊 رحلتي في التعلم: أعرف، أتساءل، أتعلم، أطبّق، أتأمل (KWHLAQ)\n📘 الدرس: (2-5) صيغ معادلة المستقيم (Equations of Line)\n🏫 ثانوية الحصان الأهلية بالدمام | أ. عمرو أبوريا\n👤 الطالب: '+(document.getElementById('sn').value||'غير محدد')+' | الشعبة: '+(document.getElementById('sc').value||'غير محدد')+'\n----------------------------------------\n';
+document.querySelectorAll('.col').forEach(function(c,i){
+if(phase==='before'&&i>=3||phase==='after'&&i<3)return;
+t+='\n🔹 ['+D[i].k+' - '+D[i].ar+']:\n';
+var li=c.querySelectorAll('li');
+if(!li.length)t+='  - لم يتم الاختيار\n';
+li.forEach(function(x){t+='  • '+x.textContent+'\n'});
+var n=c.querySelector('textarea').value.trim();if(n)t+='  ✍️ '+(i===3?'دليل على تعلّمي':i===5?'سؤالي الخاص':'إضافة الطالب')+': '+n+'\n';
+});
+return t;
+}
+function resetAll(){
+if(!confirm('هل أنت متأكد من مسح جميع الاختيارات والبيانات؟'))return;
+document.getElementById('sn').value='';document.getElementById('sc').value='';
+document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
+document.querySelectorAll('textarea').forEach(function(a){a.value=''});
+submitted={before:false,after:false};syncAll();save();updateSubmissionUI();
+}
+
+function submitPhase(phase){
+var cols=Array.from(document.querySelectorAll('.col')).slice(phase==='before'?0:3,phase==='before'?3:6);
+if(!document.getElementById('sn').value.trim()||!document.getElementById('sc').value.trim()){alert('اكتب الاسم والشعبة قبل التسليم.');return;}
+if(cols.some(function(c){return !c.querySelector('input:checked')&&!c.querySelector('textarea').value.trim()})){alert('أكمل الأعمدة الثلاثة للمرحلة قبل التسليم.');return;}
+var previous=submitted[phase];submitted[phase]=true;
+if(!save()){submitted[phase]=previous;say('تعذر الحفظ في هذا المتصفح. اسمح بالتخزين المحلي ثم أعد المحاولة.');return;}
+updateSubmissionUI();
+}
+window.addEventListener('beforeprint',function(){
+var w=document.querySelector('.wrap');w.style.zoom='';
+document.querySelectorAll('.col').forEach(function(c){var n=c.querySelector('.print-note');if(!n){n=document.createElement('div');n.className='print-note';c.querySelector('.b').appendChild(n);}n.textContent=c.querySelector('textarea').value;});
+
+});
+window.addEventListener('afterprint',function(){document.querySelector('.wrap').style.zoom='';});
+
+function updateSubmissionUI(){
+['before','after'].forEach(function(phase,i){var box=document.querySelectorAll('.phase-submit')[i];box.querySelector('.save-status').textContent=submitted[phase]?'✅ تم حفظ الإجابات على هذا الجهاز.':'';});
+document.getElementById('print-button').disabled=!(submitted.before&&submitted.after);
+}
+function changedAnswer(e){
+var col=e.target.closest('.col');
+if(col){var i=Array.from(document.querySelectorAll('.col')).indexOf(col);submitted[i<3?'before':'after']=false;}
+else if(e.target.id==='sn'||e.target.id==='sc'){submitted.before=false;submitted.after=false;}
+else return;
+save();updateSubmissionUI();
+}
+</script>
+</body>
+</html>
